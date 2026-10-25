@@ -1,146 +1,115 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="mr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#101827">
-  <title>MH Stenographer</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #101827;
-      color: #f8fafc;
-    }
-    header {
-      padding: 22px 18px;
-      background: #0b1220;
-      border-bottom: 1px solid #334155;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header h1 { font-size: 20px; margin: 0; }
-    header span { color: #38bdf8; }
-    .hero {
-      text-align: center;
-      padding: 48px 20px 32px;
-    }
-    .hero h2 { font-size: 30px; margin: 0 0 14px; }
-    .hero p { color: #cbd5e1; line-height: 1.7; }
-    .badge {
-      display: inline-block;
-      background: #123047;
-      color: #7dd3fc;
-      padding: 7px 12px;
-      border-radius: 20px;
-      font-size: 13px;
-      margin-bottom: 20px;
-    }
-    .languages {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      padding: 0 18px;
-      max-width: 650px;
-      margin: 0 auto;
-    }
-    .card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 16px;
-      padding: 22px 12px;
-      text-align: center;
-    }
-    .card .emoji { font-size: 34px; }
-    .card h3 { margin: 12px 0 8px; }
-    .card p { color: #cbd5e1; font-size: 13px; line-height: 1.5; }
-    .speeds {
-      max-width: 650px;
-      padding: 30px 18px;
-      margin: 0 auto;
-    }
-    .speeds h2 { font-size: 21px; }
-    .speed-list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    .speed {
-      background: #1e293b;
-      border: 1px solid #475569;
-      border-radius: 10px;
-      padding: 14px 8px;
-      text-align: center;
-      color: #f8fafc;
-    }
-    .note {
-      margin: 0 18px 30px;
-      padding: 18px;
-      background: #172554;
-      border-radius: 12px;
-      color: #dbeafe;
-      line-height: 1.7;
-    }
-    footer {
-      padding: 22px;
-      text-align: center;
-      color: #94a3b8;
-      border-top: 1px solid #334155;
-      font-size: 13px;
-    }
-  </style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MH Stenographer — Audio Practice</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--ink:#172033;--muted:#647084;--line:#dce2ee;--brand:#2448a8;--soft:#eaf0ff;--good:#147a45;--bad:#b42318}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Noto Sans Devanagari",sans-serif}
+header{background:linear-gradient(120deg,#172d70,#315ed0);color:white;padding:25px 18px}header .wrap,main{max-width:1100px;margin:auto}h1{margin:0 0 5px;font-size:clamp(25px,4vw,36px)}header p{margin:0;color:#e0e8ff}.tag{display:inline-block;background:#ffffff20;border:1px solid #ffffff55;padding:4px 10px;border-radius:99px;font-size:12px;margin-bottom:8px}
+main{padding:20px 14px 45px}.notice{background:#fff8df;border:1px solid #f0d47b;padding:12px 14px;border-radius:12px;color:#6b5012;margin-bottom:16px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.tab{border:1px solid var(--line);background:white;border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:650;color:var(--ink)}.tab.active{background:var(--brand);color:white;border-color:var(--brand)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 4px 18px #14224b08}.panel h2{margin:0 0 12px;font-size:21px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}label{font-weight:650;font-size:14px}input[type=text],input[type=number],select,textarea{width:100%;padding:11px 12px;border:1px solid #c9d2e2;border-radius:10px;font:inherit;background:#fff;color:var(--ink)}input[type=file]{width:100%;padding:10px;border:1px dashed #aab7d0;border-radius:10px;background:#f9faff}textarea{min-height:220px;resize:vertical;font-family:inherit;line-height:1.65}.btn{border:0;border-radius:10px;padding:11px 15px;font:inherit;font-weight:700;cursor:pointer;background:var(--brand);color:#fff}.btn.secondary{background:#e9edf7;color:#263654}.btn:disabled{opacity:.45;cursor:not-allowed}.small{font-size:13px;color:var(--muted)}audio{width:100%;margin:8px 0}.hide{display:none!important}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}.metric{border:1px solid var(--line);background:#f9faff;padding:12px;border-radius:12px}.metric span{display:block;color:var(--muted);font-size:13px}.metric strong{font-size:25px}.resulttext{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8}.wrong{background:#ffe1df;color:#9d2018;border-radius:3px}.right{background:#d9f7e6;color:#126b3c;border-radius:3px}.missing{background:#fff0c2;color:#765000;border-radius:3px}.status{font-size:14px;color:var(--muted);margin-top:8px}.pill{display:inline-block;border-radius:99px;padding:3px 9px;background:var(--soft);color:#2448a8;font-size:12px;font-weight:700}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:10px 16px 30px}
+@media(max-width:680px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{padding:14px}}
+</style>
 </head>
 <body>
-  <header>
-    <h1>MH <span>Stenographer</span></h1>
-    <div>मराठी | English</div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="badge">महाराष्ट्रातील लघुलेखकांसाठी</div>
-      <h2>तुमचा सराव, तुमची प्रगती!</h2>
-      <p>
-        मराठी आणि इंग्रजी डिक्टेशनचा सराव करा.<br>
-        तुमच्या कौशल्यानुसार पुढे जा.
-      </p>
-    </section>
-
-    <section class="languages">
-      <article class="card">
-        <div class="emoji">📘</div>
-        <h3>मराठी सराव</h3>
-        <p>मराठी डिक्टेशन आणि टायपिंग सराव</p>
-      </article>
-      <article class="card">
-        <div class="emoji">📗</div>
-        <h3>English Practice</h3>
-        <p>English dictation and typing practice</p>
-      </article>
-    </section>
-
-    <section class="speeds">
-      <h2>सरावाचा वेग (WPM)</h2>
-      <div class="speed-list">
-        <div class="speed">60 WPM</div>
-        <div class="speed">80 WPM</div>
-        <div class="speed">100 WPM</div>
-        <div class="speed">120 WPM</div>
-      </div>
-    </section>
-
-    <section class="note">
-      <strong>MH Stenographer मध्ये आपले स्वागत आहे!</strong><br>
-      विद्यार्थ्यांसाठी डिक्टेशन सराव, टेस्ट आणि निकाल
-      यासाठी एकाच ठिकाणी सुविधा उपलब्ध करून देणे हे आमचे ध्येय आहे.
-    </section>
-  </main>
-
-  <footer>
-    © 2026 MH Stenographer · सर्व हक्क राखीव
-  </footer>
-</body>
-</html>
+<header><div class="wrap"><span class="tag">STENO PRACTICE • PROTOTYPE</span><h1>MH Stenographer</h1><p>Audio Practice · Typing Workspace · Automatic Passage Checking</p></div></header>
+<main>
+<div class="notice"><strong>Prototype सूचना:</strong> ही पहिली browser-based आवृत्ती आहे. तुमचे ऑडिओ/PDF व टाइप केलेला मजकूर या पेजवरच process होतात. पेज refresh केल्यावर माहिती जतन राहत नाही. PDF मधील मजकूर selectable असेल तर extraction उत्तम चालेल; scanned PDF साठी OCR/backend पुढे जोडावे लागेल.</div>
+<div class="tabs"><button class="tab active" data-tab="practice">विद्यार्थी सराव</button><button class="tab" data-tab="admin">Admin: Audio/PDF अपलोड</button><button class="tab" data-tab="self">स्वतःचा PDF तपासा</button></div>
+<section id="practice" class="panel">
+<h2>1. Audio ऐका आणि Passage टाइप करा</h2>
+<div class="grid">
+<div class="field"><label for="lang">भाषा / Language</label><select id="lang"><option value="mr">मराठी</option><option value="en">English</option></select></div>
+<div class="field"><label for="speed">Dictation Speed (WPM)</label><select id="speed"><option>80</option><option selected>100</option><option>120</option><option>Other</option></select></div>
+</div>
+<div class="field"><label for="practiceAudio">Audio file</label><input id="practiceAudio" type="file" accept="audio/*"><audio id="player" controls class="hide"></audio><div class="small" id="audioStatus">Admin tab मधून audio जोडू शकता किंवा इथे फाइल निवडा.</div></div>
+<div class="field"><label for="referenceText">मूळ Passage (PDF मधून काढलेला मजकूर; गरज असल्यास इथे paste/edit करा)</label><textarea id="referenceText" placeholder="सरावाचा मूळ passage इथे दिसेल. Admin PDF अपलोड करा किंवा मजकूर paste करा."></textarea></div>
+<div class="field"><label for="studentText">तुमचे टाइप केलेले उत्तर / Your transcription</label><textarea id="studentText" placeholder="ऑडिओ ऐकून इथे passage टाइप करा..." spellcheck="false"></textarea></div>
+<div class="grid"><div class="field"><label for="minutes">वेळ (मिनिटे)</label><input id="minutes" type="number" min="0" step="0.1" value="5"></div><div class="field"><label>Typing tools</label><div><button class="btn secondary" id="clearBtn" type="button">मजकूर साफ करा</button> <button class="btn secondary" id="downloadBtn" type="button">उत्तर .txt डाउनलोड</button></div></div></div>
+<button class="btn" id="checkBtn" type="button">उत्तर तपासा / Check Answer</button><div id="checkStatus" class="status"></div>
+</section>
+<section id="admin" class="panel hide">
+<h2>Admin: सरावासाठी Audio आणि PDF जोडा</h2>
+<p class="small">ही demo आवृत्ती फाइल server वर प्रकाशित करत नाही. फाइल निवडल्यावर या browser session मध्ये audio आणि PDF मजकूर वापरता येतो.</p>
+<div class="grid">
+<div class="field"><label for="adminAudio">Audio upload</label><input id="adminAudio" type="file" accept="audio/*"></div>
+<div class="field"><label for="adminPdf">त्या audio चा Passage PDF</label><input id="adminPdf" type="file" accept="application/pdf,.pdf"></div>
+</div>
+<button class="btn" id="loadAdmin" type="button">Load practice material</button><div id="adminStatus" class="status"></div>
+</section>
+<section id="self" class="panel hide">
+<h2>নিজের PDF / Your PDF দিয়ে उत्तर तपासा</h2>
+<p class="small">तुमच्या device मधील PDF निवडा. त्यातील मजकूर reference म्हणून वापरला जाईल. तुमची typing मुख्य सराव पेजवर टाका आणि Check Answer दाबा.</p>
+<div class="field"><label for="studentPdf">PDF upload</label><input id="studentPdf" type="file" accept="application/pdf,.pdf"></div>
+<button class="btn" id="loadStudentPdf" type="button">PDF मधील मजकूर वाचा</button><div id="pdfStatus" class="status"></div>
+</section>
+<section id="results" class="panel hide">
+<h2>तुमचा निकाल / Your Result</h2><span class="pill" id="resultLang">मराठी</span>
+<div class="metrics">
+<div class="metric"><span>अचूकता / Accuracy</span><strong id="accuracy">—</strong></div>
+<div class="metric"><span>Reference words</span><strong id="refWords">—</strong></div>
+<div class="metric"><span>Typed words</span><strong id="typedWords">—</strong></div>
+<div class="metric"><span>अंदाजे WPM</span><strong id="wpm">—</strong></div>
+<div class="metric"><span>Missing words</span><strong id="missingCount">—</strong></div>
+<div class="metric"><span>Extra words</span><strong id="extraCount">—</strong></div>
+<div class="metric"><span>Substitutions</span><strong id="subCount">—</strong></div>
+<div class="metric"><span>Character match</span><strong id="charAcc">—</strong></div>
+</div>
+<h3>तुलना / Comparison</h3><p class="small"><span class="right">बरोबर</span> <span class="wrong">चुकीचा/वेगळा</span> <span class="missing">मूळ passage मधून राहिलेला शब्द</span></p>
+<div class="grid"><div><label>मूळ Passage</label><div id="refCompare" class="resulttext"></div></div><div><label>तुमचे उत्तर</label><div id="typedCompare" class="resulttext"></div></div></div>
+<p class="small">टीप: Accuracy = योग्य जुळलेले शब्द ÷ reference मधील एकूण शब्द. हे सरावासाठीचे अंदाजे गुण आहेत; अधिकृत परीक्षेचे गुणांकन नियम वेगळे असू शकतात.</p>
+<button class="btn secondary" id="hideResults" type="button">निकाल बंद करा</button>
+</section>
+</main>
+<footer>MH Stenographer • First working prototype • मराठी + English</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const tabButtons=[...document.querySelectorAll('.tab')];
+tabButtons.forEach(b=>b.addEventListener('click',()=>{tabButtons.forEach(x=>x.classList.toggle('active',x===b));['practice','admin','self'].forEach(id=>$(id).classList.toggle('hide',id!==b.dataset.tab));}));
+function setAudio(file){if(!file)return;const url=URL.createObjectURL(file);$('player').src=url;$('player').classList.remove('hide');$('audioStatus').textContent='Audio loaded: '+file.name;}
+$('practiceAudio').addEventListener('change',e=>setAudio(e.target.files[0]));
+async function extractPdf(file){
+ if(!file)throw new Error('कृपया PDF फाइल निवडा.');
+ if(!window.pdfjsLib)throw new Error('PDF reader load झाला नाही. इंटरनेट सुरू करून पेज refresh करा किंवा मजकूर स्वतः paste करा.');
+ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+ const bytes=await file.arrayBuffer(),pdf=await pdfjsLib.getDocument({data:bytes}).promise;let pages=[];
+ for(let i=1;i<=pdf.numPages;i++){const p=await pdf.getPage(i),c=await p.getTextContent();pages.push(c.items.map(x=>x.str).join(' '));}
+ const text=pages.join('\\n').replace(/[ \\t]+/g,' ').replace(/\\n{3,}/g,'\\n\\n').trim();
+ if(!text)throw new Error('PDF मधून selectable text सापडला नाही. हा scanned PDF असू शकतो; OCR आवश्यक आहे.');
+ return text;
+}
+$('loadAdmin').addEventListener('click',async()=>{try{const af=$('adminAudio').files[0],pf=$('adminPdf').files[0];if(af)setAudio(af);if(pf){$('adminStatus').textContent='PDF वाचत आहे...';$('referenceText').value=await extractPdf(pf);} $('adminStatus').textContent='Material loaded. विद्यार्थी सराव tab मध्ये जा.';if(!af&&!pf)$('adminStatus').textContent='किमान Audio किंवा PDF निवडा.';}catch(e){$('adminStatus').textContent=e.message;}});
+$('loadStudentPdf').addEventListener('click',async()=>{try{$('pdfStatus').textContent='PDF वाचत आहे...';const t=await extractPdf($('studentPdf').files[0]);$('referenceText').value=t;$('pdfStatus').textContent='PDF text loaded. विद्यार्थी सराव tab मध्ये जाऊन typing तपासा.';document.querySelector('[data-tab="practice"]').click();}catch(e){$('pdfStatus').textContent=e.message;}});
+function words(s){return s.normalize('NFC').match(/[\\p{L}\\p{N}]+(?:['’.-][\\p{L}\\p{N}]+)*/gu)||[]}
+function norm(w){return w.toLocaleLowerCase().normalize('NFC').replace(/[’]/g,"'")}
+function align(a,b){
+ const n=a.length,m=b.length;
+ if((n+1)*(m+1)>2500000)return null;
+ const d=Array.from({length:n+1},()=>new Uint32Array(m+1));
+ for(let i=0;i<=n;i++)d[i][0]=i;for(let j=0;j<=m;j++)d[0][j]=j;
+ for(let i=1;i<=n;i++)for(let j=1;j<=m;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(norm(a[i-1])===norm(b[j-1])?0:1));
+ let i=n,j=m,ops=[];while(i||j){if(i&&j&&d[i][j]===d[i-1][j-1]+(norm(a[i-1])===norm(b[j-1])?0:1)){ops.push({type:norm(a[i-1])===norm(b[j-1])?'ok':'sub',a:a[i-1],b:b[j-1]});i--;j--;}else if(i&&d[i][j]===d[i-1][j]+1){ops.push({type:'miss',a:a[i-1]});i--;}else{ops.push({type:'extra',b:b[j-1]});j--;}}
+ return ops.reverse();
+}
+function span(txt,cls){const s=document.createElement('span');s.className=cls;s.textContent=txt+' ';return s}
+$('checkBtn').addEventListener('click',()=>{
+ const r=$('referenceText').value.trim(),t=$('studentText').value.trim();
+ if(!r||!t){$('checkStatus').textContent='मूळ Passage आणि तुमचे उत्तर दोन्ही भरा.';return;}
+ const a=words(r),b=words(t),ops=align(a,b);if(!ops){$('checkStatus').textContent='Passage खूप मोठा आहे. लहान भाग करून तपासा (सध्या 2.5 million alignment cells पर्यंत).';return;}
+ const ok=ops.filter(x=>x.type==='ok').length,miss=ops.filter(x=>x.type==='miss').length,extra=ops.filter(x=>x.type==='extra').length,sub=ops.filter(x=>x.type==='sub').length;
+ const accuracy=a.length?Math.round(ok/a.length*100):0, mins=Math.max(.01,Number($('minutes').value)||1),charTotal=Math.max(r.length,t.length),charMatch=Math.max(0,1-(ops.reduce((s,x)=>s+(x.type==='ok'?0:(x.a||'').length+(x.b||'').length),0)/Math.max(1,r.length+t.length)));
+ $('accuracy').textContent=accuracy+'%';$('refWords').textContent=a.length;$('typedWords').textContent=b.length;$('wpm').textContent=Math.round(b.length/mins);$('missingCount').textContent=miss;$('extraCount').textContent=extra;$('subCount').textContent=sub;$('charAcc').textContent=Math.round(charMatch*100)+'%';$('resultLang').textContent=$('lang').value==='mr'?'मराठी':'English';
+ const rr=$('refCompare'),tt=$('typedCompare');rr.replaceChildren();tt.replaceChildren();
+ for(const x of ops){if(x.type==='ok'){rr.append(span(x.a,'right'));tt.append(span(x.b,'right'));}else if(x.type==='sub'){rr.append(span(x.a,'wrong'));tt.append(span(x.b,'wrong'));}else if(x.type==='miss')rr.append(span(x.a,'missing'));else tt.append(span(x.b,'wrong'));}
+ $('results').classList.remove('hide');$('checkStatus').textContent='तपासणी पूर्ण झाली.';$('results').scrollIntoView({behavior:'smooth',block:'start'});
+});
+$('clearBtn').addEventListener('click',()=>{$('studentText').value='';$('checkStatus').textContent='';});
+$('downloadBtn').addEventListener('click',()=>{const blob=new Blob([$('studentText').value],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mh-stenographer-answer.txt';a.click();URL.revokeObjectURL(url);});
+$('hideResults').addEventListener('click',()=>$('results').classList.add('hide'));
+</script>
+</body></html>
