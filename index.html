@@ -18,8 +18,8 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:10px 16px 30p
 <body>
 <header><div class="wrap"><span class="tag">STENO PRACTICE • PROTOTYPE</span><h1>MH Stenographer</h1><p>Audio Practice · Typing Workspace · Automatic Passage Checking</p></div></header>
 <main>
-<div class="notice"><strong>Prototype सूचना:</strong> ही पहिली browser-based आवृत्ती आहे. तुमचे ऑडिओ/PDF व टाइप केलेला मजकूर या पेजवरच process होतात. पेज refresh केल्यावर माहिती जतन राहत नाही. PDF मधील मजकूर selectable असेल तर extraction उत्तम चालेल; scanned PDF साठी OCR/backend पुढे जोडावे लागेल.</div>
-<div class="tabs"><button class="tab active" data-tab="practice">विद्यार्थी सराव</button><button class="tab" data-tab="admin">Admin: Audio/PDF अपलोड</button><button class="tab" data-tab="self">स्वतःचा PDF तपासा</button></div>
+<div class="notice"><strong>Prototype सूचना:</strong> ही browser-based prototype आवृत्ती आहे. Admin ऑडिओ अपलोड करून उतारा थेट Copy-Paste करू शकतो. विद्यार्थी Submit करेपर्यंत मूळ उतारा दिसणार नाही. सध्या कायमस्वरूपी सेव्हिंग आणि सुरक्षित answer checking साठी backend जोडणे आवश्यक आहे.</div>
+<div class="tabs"><button class="tab active" data-tab="practice">विद्यार्थी सराव</button><button class="tab" data-tab="admin">Admin: Audio/Passage</button><button class="tab" data-tab="self">स्वतःचा PDF तपासा</button></div>
 <section id="practice" class="panel">
 <h2>1. Audio ऐका आणि Passage टाइप करा</h2>
 <div class="grid">
@@ -27,23 +27,22 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:10px 16px 30p
 <div class="field"><label for="speed">Dictation Speed (WPM)</label><select id="speed"><option>80</option><option selected>100</option><option>120</option><option>Other</option></select></div>
 </div>
 <div class="field"><label for="practiceAudio">Audio file</label><input id="practiceAudio" type="file" accept="audio/*"><audio id="player" controls class="hide"></audio><div class="small" id="audioStatus">Admin tab मधून audio जोडू शकता किंवा इथे फाइल निवडा.</div></div>
-<div class="field"><label for="referenceText">मूळ Passage (PDF मधून काढलेला मजकूर; गरज असल्यास इथे paste/edit करा)</label><textarea id="referenceText" placeholder="सरावाचा मूळ passage इथे दिसेल. Admin PDF अपलोड करा किंवा मजकूर paste करा."></textarea></div>
+<textarea id="referenceText" class="hide" aria-hidden="true" tabindex="-1"></textarea>
 <div class="field"><label for="studentText">तुमचे टाइप केलेले उत्तर / Your transcription</label><textarea id="studentText" placeholder="ऑडिओ ऐकून इथे passage टाइप करा..." spellcheck="false"></textarea></div>
 <div class="grid"><div class="field"><label for="minutes">वेळ (मिनिटे)</label><input id="minutes" type="number" min="0" step="0.1" value="5"></div><div class="field"><label>Typing tools</label><div><button class="btn secondary" id="clearBtn" type="button">मजकूर साफ करा</button> <button class="btn secondary" id="downloadBtn" type="button">उत्तर .txt डाउनलोड</button></div></div></div>
-<button class="btn" id="checkBtn" type="button">उत्तर तपासा / Check Answer</button><div id="checkStatus" class="status"></div>
+<button class="btn" id="checkBtn" type="button">Submit करून उत्तर तपासा / Submit Answer</button><div id="checkStatus" class="status"></div>
 </section>
 <section id="admin" class="panel hide">
-<h2>Admin: सरावासाठी Audio आणि PDF जोडा</h2>
-<p class="small">ही demo आवृत्ती फाइल server वर प्रकाशित करत नाही. फाइल निवडल्यावर या browser session मध्ये audio आणि PDF मजकूर वापरता येतो.</p>
-<div class="grid">
+<h2>Admin: Audio आणि Passage Text जोडा</h2>
+<p class="small">ऑडिओ अपलोड करा आणि त्याचा अचूक उतारा खाली थेट Copy-Paste करा. मूळ उतारा विद्यार्थी Submit करेपर्यंत सराव स्क्रीनवर दिसणार नाही. ही prototype आवृत्ती आहे; सुरक्षित server-side लपवणूक व कायमस्वरूपी सेव्हिंगसाठी backend आवश्यक आहे.</p>
 <div class="field"><label for="adminAudio">Audio upload</label><input id="adminAudio" type="file" accept="audio/*"></div>
-<div class="field"><label for="adminPdf">त्या audio चा Passage PDF</label><input id="adminPdf" type="file" accept="application/pdf,.pdf"></div>
-</div>
-<button class="btn" id="loadAdmin" type="button">Load practice material</button><div id="adminStatus" class="status"></div>
+<div class="field"><label for="passageTitle">उताऱ्याचे शीर्षक</label><input id="passageTitle" type="text" placeholder="उदा. मराठी लघुलेखन सराव १"></div>
+<div class="field"><label for="adminPassage">मूळ Passage Text (इथे Copy-Paste करा)</label><textarea id="adminPassage" placeholder="मराठी किंवा English उतारा इथे Paste करा..." spellcheck="false"></textarea></div>
+<button class="btn" id="loadAdmin" type="button">Save practice material</button><div id="adminStatus" class="status"></div>
 </section>
 <section id="self" class="panel hide">
 <h2>নিজের PDF / Your PDF দিয়ে उत्तर तपासा</h2>
-<p class="small">तुमच्या device मधील PDF निवडा. त्यातील मजकूर reference म्हणून वापरला जाईल. तुमची typing मुख्य सराव पेजवर टाका आणि Check Answer दाबा.</p>
+<p class="small">तुमच्या device मधील PDF निवडा. त्यातील मजकूर reference म्हणून वापरला जाईल आणि Submit करण्यापूर्वी दिसणार नाही.</p>
 <div class="field"><label for="studentPdf">PDF upload</label><input id="studentPdf" type="file" accept="application/pdf,.pdf"></div>
 <button class="btn" id="loadStudentPdf" type="button">PDF मधील मजकूर वाचा</button><div id="pdfStatus" class="status"></div>
 </section>
@@ -83,8 +82,14 @@ async function extractPdf(file){
  if(!text)throw new Error('PDF मधून selectable text सापडला नाही. हा scanned PDF असू शकतो; OCR आवश्यक आहे.');
  return text;
 }
-$('loadAdmin').addEventListener('click',async()=>{try{const af=$('adminAudio').files[0],pf=$('adminPdf').files[0];if(af)setAudio(af);if(pf){$('adminStatus').textContent='PDF वाचत आहे...';$('referenceText').value=await extractPdf(pf);} $('adminStatus').textContent='Material loaded. विद्यार्थी सराव tab मध्ये जा.';if(!af&&!pf)$('adminStatus').textContent='किमान Audio किंवा PDF निवडा.';}catch(e){$('adminStatus').textContent=e.message;}});
-$('loadStudentPdf').addEventListener('click',async()=>{try{$('pdfStatus').textContent='PDF वाचत आहे...';const t=await extractPdf($('studentPdf').files[0]);$('referenceText').value=t;$('pdfStatus').textContent='PDF text loaded. विद्यार्थी सराव tab मध्ये जाऊन typing तपासा.';document.querySelector('[data-tab="practice"]').click();}catch(e){$('pdfStatus').textContent=e.message;}});
+$('loadAdmin').addEventListener('click',()=>{
+ const af=$('adminAudio').files[0], passage=$('adminPassage').value.trim();
+ if(af)setAudio(af);
+ if(!passage){$('adminStatus').textContent='कृपया मूळ Passage Text Paste करा.';return;}
+ $('referenceText').value=passage;
+ $('adminStatus').textContent='Practice material या browser session मध्ये तयार आहे. विद्यार्थी सराव tab मध्ये जा.';
+});
+$('loadStudentPdf').addEventListener('click',async()=>{try{$('pdfStatus').textContent='PDF वाचत आहे...';const t=await extractPdf($('studentPdf').files[0]);$('referenceText').value=t;$('pdfStatus').textContent='PDF text loaded. Audio ऐकून टाइप करा आणि Submit केल्यानंतरच निकाल पाहा.';document.querySelector('[data-tab="practice"]').click();}catch(e){$('pdfStatus').textContent=e.message;}});
 function words(s){return s.normalize('NFC').match(/[\\p{L}\\p{N}]+(?:['’.-][\\p{L}\\p{N}]+)*/gu)||[]}
 function norm(w){return w.toLocaleLowerCase().normalize('NFC').replace(/[’]/g,"'")}
 function align(a,b){
